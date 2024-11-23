@@ -1,0 +1,10 @@
+{
+  "name": "Daily Box",
+  "description": "自定义 Chrome 空白页的喜好",
+  "version": "1.0",
+  "manifest_version": 3,
+  "permissions": ["bookmarks", "tabs", "activeTab", "scripting", "history", "favicon"],
+  "chrome_url_overrides": {
+    "newtab": "/index.html"
+  }
+}

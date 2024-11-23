@@ -1,0 +1,26 @@
+{
+  "name": "habit",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview",
+    "build:watch": "vue-tsc -b && vite build --watch"
+  },
+  "dependencies": {
+    "@vueuse/core": "^11.3.0",
+    "element-plus": "^2.8.8",
+    "vue": "^3.5.12"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.1.4",
+    "path": "^0.12.7",
+    "typescript": "~5.6.2",
+    "unplugin-auto-import": "^0.18.5",
+    "unplugin-vue-components": "^0.27.4",
+    "vite": "^5.4.10",
+    "vue-tsc": "^2.1.8"
+  }
+}
