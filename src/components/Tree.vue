@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
 import { ElTree } from 'element-plus'
-import { Bookmark } from '../types/bookmark.ts'
+import { Bookmark } from '../types/bookmark'
 
-defineProps<{
+const props = defineProps<{
   sourceData: Bookmark[]
 }>()
 
@@ -12,7 +12,7 @@ const treeDefaultProps = {
   label: 'title',
 }
 
-const handleTreeClick = (data: Bookmark) => {
+const handleTreeClick = (data: any) => {
   if (data.url) {
     window.open(data.url)
   }
@@ -35,12 +35,19 @@ const filterTreeNode = (value: string, data: any) => {
 <template>
   <el-input v-model="filterText" style="width: 240px" placeholder="搜索" />
 
-  <el-tree
+  <el-tree-v2
     ref="treeRef"
     :data="sourceData"
     :props="treeDefaultProps"
     @node-click="handleTreeClick"
     :filter-node-method="filterTreeNode"
     key="bookmark-tree"
+    class="tree"
   />
 </template>
+<style scoped>
+.tree {
+  min-height: 100vh;
+  max-height: 100vh;
+}
+</style>
