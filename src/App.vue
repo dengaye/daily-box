@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import Tree from './components/Tree.vue'
+import AsideTree from './components/AsideTree.vue'
 import DailySummary from './components/DailySummary.vue'
 import { Bookmark } from "./types/bookmark"
 import { formatBookmarkToTree } from './utils/formatBookmarkToTree'
@@ -34,7 +34,7 @@ onMounted(() => {
   <section v-if="!loading">
     <el-container v-if="sourceData?.length">
       <el-aside class="aside">
-        <Tree :sourceData="sourceData"/>
+        <AsideTree :sourceData="sourceData"/>
       </el-aside>
       <el-main>
         <DailySummary :sourceData="sourceData" />
