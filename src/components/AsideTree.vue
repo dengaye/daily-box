@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
 import { Bookmark } from '../types/bookmark'
+import store from '../store'
 
 defineProps<{
   sourceData: Bookmark[]
@@ -12,6 +13,7 @@ const treeDefaultProps = {
 }
 
 const handleTreeClick = (data: any) => {
+  store.updateMarkbookDetail(data)
   if (data.url) {
     window.open(data.url)
   }

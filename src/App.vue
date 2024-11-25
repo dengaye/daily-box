@@ -4,17 +4,7 @@ import AsideTree from './components/AsideTree.vue'
 import DailySummary from './components/DailySummary.vue'
 import BookMarkDetail from './components/BookmarkDetail.vue'
 import { Bookmark } from "./types/bookmark"
-import { formatBookmarkToTree } from './utils/formatBookmarkToTree'
-// import { useDark, useToggle } from "@vueuse/core"
-
-// const isDark = useDark({
-//   selector: 'html',
-//   attribute: 'class',
-//   valueDark: 'dark',
-//   valueLight: 'light'
-// })
-// const toggleDark = useToggle(isDark)
-// toggleDark()
+import { formatBookmarkToTree } from './utils/bookmark'
 
 const sourceData = ref<Bookmark[]>([])
 const loading = ref(true)

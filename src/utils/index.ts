@@ -9,3 +9,7 @@ export function getTodayTime(format = '-') {
 function padZero(num: number) {
   return num < 10 ? '0' + num : num;
 }
+
+export function getRandomInt(min: number, max: number) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { Bookmark } from '../types/bookmark'
-import { genaratorBookmark } from '../utils/genaratorBookmark'
+import { genaratorBookmark } from '../utils/bookmark'
 import { DAILY_MSG_STORAGE_KEY_PREFIX } from '../constants/storage'
 import { getTodayTime } from '../utils'
 
