@@ -19,7 +19,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
-    "types": ["element-plus/global"]
+    "types": ["element-plus/global", "chrome"]
   },
   "include": ["vite.config.ts"]
 }

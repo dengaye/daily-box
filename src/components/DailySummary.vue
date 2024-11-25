@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { Bookmark } from '../types/bookmark.ts'
-import { genaratorBookmark } from '../utils/genaratorBookmark.ts'
-import { DAILY_MSG_STORAGE_KEY_PREFIX } from '../constants/storage.ts'
-import { getTodayTime } from '../utils/index.ts'
+import { Bookmark } from '../types/bookmark'
+import { genaratorBookmark } from '../utils/genaratorBookmark'
+import { DAILY_MSG_STORAGE_KEY_PREFIX } from '../constants/storage'
+import { getTodayTime } from '../utils'
 
 const props = defineProps<{
   sourceData: Bookmark[]
