@@ -7,6 +7,8 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AsideTree: typeof import('./src/components/AsideTree.vue')['default']
+    BookmarkDetail: typeof import('./src/components/BookmarkDetail.vue')['default']
     DailySummary: typeof import('./src/components/DailySummary.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElCard: typeof import('element-plus/es')['ElCard']
@@ -15,6 +17,6 @@ declare module 'vue' {
     ElLink: typeof import('element-plus/es')['ElLink']
     ElMain: typeof import('element-plus/es')['ElMain']
     ElText: typeof import('element-plus/es')['ElText']
-    Tree: typeof import('./src/components/Tree.vue')['default']
+    ElTree: typeof import('element-plus/es')['ElTree']
   }
 }

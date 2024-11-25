@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import Tree from './components/Tree.vue'
+import AsideTree from './components/AsideTree.vue'
 import DailySummary from './components/DailySummary.vue'
-import { Bookmark } from "./types/bookmark.ts"
+import BookMarkDetail from './components/BookmarkDetail.vue'
+import { Bookmark } from "./types/bookmark"
+import { formatBookmarkToTree } from './utils/formatBookmarkToTree'
 // import { useDark, useToggle } from "@vueuse/core"
 
 // const isDark = useDark({
@@ -15,21 +17,14 @@ import { Bookmark } from "./types/bookmark.ts"
 // toggleDark()
 
 const sourceData = ref<Bookmark[]>([])
+const loading = ref(true)
 
 onMounted(() => {
+  loading.value = true
   document.addEventListener('DOMContentLoaded', function () {
-    chrome.bookmarks.getTree(function (bookmarkTreeNodes) {
-      let newData: any[] = []
-      if (bookmarkTreeNodes?.length === 1) {
-        if (newData?.[0]?.title) {
-          newData = bookmarkTreeNodes
-        } else {
-          newData = bookmarkTreeNodes[0].children
-        }
-      } else {
-        newData = bookmarkTreeNodes
-      }
-      sourceData.value = newData
+    chrome.bookmarks.getTree(function (bookmarkTreeNodes: any[]) {
+      sourceData.value = formatBookmarkToTree(bookmarkTreeNodes)
+      loading.value = false
     });
   });
 })
@@ -37,13 +32,14 @@ onMounted(() => {
 </script>
 
 <template>
-  <section>
+  <section v-if="!loading">
     <el-container v-if="sourceData?.length">
-      <el-aside>
-        <Tree :sourceData="sourceData"/>
+      <el-aside class="aside">
+        <AsideTree :sourceData="sourceData"/>
       </el-aside>
       <el-main>
         <DailySummary :sourceData="sourceData" />
+        <BookMarkDetail />
       </el-main>
     </el-container>
   </section>

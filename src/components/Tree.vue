@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
-import { ElTree } from 'element-plus'
-import { Bookmark } from '../types/bookmark.ts'
+import { Bookmark } from '../types/bookmark'
 
 defineProps<{
   sourceData: Bookmark[]
@@ -12,14 +11,14 @@ const treeDefaultProps = {
   label: 'title',
 }
 
-const handleTreeClick = (data: Bookmark) => {
+const handleTreeClick = (data: any) => {
   if (data.url) {
     window.open(data.url)
   }
 }
 
 const filterText = ref('')
-const treeRef = ref<InstanceType<typeof ElTree>>()
+const treeRef = ref()
 
 watch(filterText, (val) => {
   treeRef.value!.filter(val)
@@ -41,6 +40,20 @@ const filterTreeNode = (value: string, data: any) => {
     :props="treeDefaultProps"
     @node-click="handleTreeClick"
     :filter-node-method="filterTreeNode"
-    key="bookmark-tree"
+    node-key="id"
+    class="tree"
   />
 </template>
+<style scoped>
+.tree {
+  margin-top: 10px;
+  min-height: calc(100vh - 84px);
+  max-height: calc(100vh - 84px);
+}
+.tree ::v-deep .el-tree-node__label,
+.tree ::v-deep .el-tree-node__content {
+  height: auto;
+  line-height: 26px;
+  white-space: break-spaces;
+}
+</style>
