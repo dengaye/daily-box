@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import BookmarkFavicon from './BookmarkFavicon.vue'
 import { Bookmark } from '../types/bookmark'
 import { genaratorBookmark } from '../utils/bookmark'
 import { DAILY_MSG_STORAGE_KEY_PREFIX } from '../constants/storage'
@@ -33,6 +34,15 @@ onMounted(() => {
     <template #header>
       每日一览 <el-text class="mx-1" size="small">{{todayTime}}</el-text>
     </template>
-    <el-link class="text item" :href="dailyBookmark.url" v-if="dailyBookmark" target="_blank">{{ dailyBookmark.title }}</el-link>
+    <el-link class="text item" :href="dailyBookmark.url" v-if="dailyBookmark" target="_blank">
+      <BookmarkFavicon :url="dailyBookmark.url" className="icon" />
+      {{ dailyBookmark.title }}
+    </el-link>
   </el-card>
 </template>
+
+<style scoped>
+.icon {
+  margin-right: 8px;
+}
+</style>

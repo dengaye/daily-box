@@ -7,5 +7,5 @@ interface BookmarkChildren {
 }
 
 export interface Bookmark extends BookmarkChildren {
-  children?: BookmarkChildren[]
+  children?: Bookmark[]
 }

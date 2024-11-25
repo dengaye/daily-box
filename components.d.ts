@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     AsideTree: typeof import('./src/components/AsideTree.vue')['default']
     BookmarkDetail: typeof import('./src/components/BookmarkDetail.vue')['default']
+    BookmarkFavicon: typeof import('./src/components/BookmarkFavicon.vue')['default']
     DailySummary: typeof import('./src/components/DailySummary.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElCard: typeof import('element-plus/es')['ElCard']

@@ -2,13 +2,13 @@ import { reactive } from 'vue'
 import { Bookmark } from '../types/bookmark'
 
 interface IStore {
-  markbookDetail: Bookmark[]
-  updateMarkbookDetail: (data: Bookmark[]) => void
+  markbookDetail: Bookmark | null
+  updateMarkbookDetail: (data: Bookmark) => void
 }
 
 const store = reactive<IStore>({
-  markbookDetail: [],
-  updateMarkbookDetail(data: Bookmark[]) {
+  markbookDetail:  null,
+  updateMarkbookDetail(data: Bookmark) {
     this.markbookDetail = data
   }
 })

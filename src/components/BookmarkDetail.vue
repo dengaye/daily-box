@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { FolderOpened } from '@element-plus/icons-vue'
-import store from '../store'
+import store from '../store/index'
 import { Bookmark } from '../types/bookmark'
-import { faviconURLInChromeExtends } from '../utils/bookmark'
+import BookmarkFavicon from './BookmarkFavicon.vue'
 
 const handleClick = (data: Bookmark) => {
   if (data.children?.length) {
@@ -12,22 +12,23 @@ const handleClick = (data: Bookmark) => {
   }
 }
 
+const isLink = (item: Bookmark) => {
+  return !item?.children?.length
+}
+
 </script>
 <template>
-  <el-card shadow="always" v-if="store.markbookDetail?.title" class="container">
+  <el-card shadow="always" v-if="store.markbookDetail" class="container">
     <el-space wrap>
       <el-card v-for="item in store.markbookDetail?.children" :key="item.id" @click="() => handleClick(item)" class="card">
-        <el-icon v-if="item?.children?.length" :size="20" class="icon">
+        <el-icon v-if="!isLink(item)" :size="20" class="icon">
           <FolderOpened />
         </el-icon>
-        <el-image
-          v-else
-          :src="faviconURLInChromeExtends(item.url, '20')"
-          fit="cover"
-          class="img"
-          crossorigin="anonymous"
-        />
-        {{ item.title }}
+        <BookmarkFavicon v-else :url="item.url" className="img" />
+        <el-link v-if="isLink(item)">
+          {{ item.title }}
+        </el-link>
+        <span v-else>{{ item.title }}</span>
       </el-card>
     </el-space>
   </el-card>
@@ -36,14 +37,17 @@ const handleClick = (data: Bookmark) => {
 .container {
   margin-top: 10px;
 }
+.container :deep(.el-card__body) {
+  display: inline-flex
+}
 .icon {
   vertical-align: bottom;
+  margin-right: 8px;
 }
 .card {
   cursor: pointer;
 }
 .img {
-  vertical-align: bottom;
-  border-radius: 50%;
+  margin-right: 8px;
 }
 </style>

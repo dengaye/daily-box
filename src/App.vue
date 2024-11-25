@@ -34,3 +34,8 @@ onMounted(() => {
     </el-container>
   </section>
 </template>
+<style scoped>
+.aside {
+  padding: 0 20px 20px;
+}
+</style>

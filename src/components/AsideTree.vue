@@ -34,7 +34,9 @@ const filterTreeNode = (value: string, data: any) => {
 </script>
 
 <template>
-  <el-input v-model="filterText" style="width: 240px" placeholder="搜索" />
+  <section class="input-wrapper">
+    <el-input v-model="filterText" placeholder="搜索" />
+  </section>
 
   <el-tree
     ref="treeRef"
@@ -52,10 +54,18 @@ const filterTreeNode = (value: string, data: any) => {
   min-height: calc(100vh - 84px);
   max-height: calc(100vh - 84px);
 }
-.tree ::v-deep .el-tree-node__label,
-.tree ::v-deep .el-tree-node__content {
+.tree ::v-deep(.el-tree-node__label),
+.tree ::v-deep(.el-tree-node__content) {
   height: auto;
   line-height: 26px;
   white-space: break-spaces;
+}
+
+.input-wrapper {
+  position: sticky;
+  top: 0;
+  z-index: 33;
+  background-color: var(--el-bg-color-overlay);
+  margin-top: 20px;
 }
 </style>
