@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
+import BookmarkFavicon from './BookmarkFavicon.vue'
 import { Bookmark } from '../types/bookmark'
 import store from '../store'
 
@@ -13,9 +14,11 @@ const treeDefaultProps = {
 }
 
 const handleTreeClick = (data: any) => {
-  store.updateMarkbookDetail(data)
   if (data.url) {
+    store.updateMarkbookDetail(null)
     window.open(data.url)
+  } else {
+    store.updateMarkbookDetail(data)
   }
 }
 
@@ -31,6 +34,9 @@ const filterTreeNode = (value: string, data: any) => {
   if (!value) return true
   return data.title?.includes?.(value)
 }
+
+const isLink = (data: any) => !data?.children?.length
+
 </script>
 
 <template>
@@ -46,7 +52,20 @@ const filterTreeNode = (value: string, data: any) => {
     :filter-node-method="filterTreeNode"
     node-key="id"
     class="tree"
-  />
+    :index="12"
+  >
+    <template #default="{node, data}">
+      <el-link v-if="isLink(data)" class="link-wrapper">
+        <el-icon class="el-icon--left">
+          <BookmarkFavicon :url="data.url" className="link-icon" />
+        </el-icon>
+        {{ node.label }}
+      </el-link>
+      <span class="custom-tree-node" v-else>
+        <span>{{ node.label }}</span>
+      </span>
+    </template>
+  </el-tree>
 </template>
 <style scoped>
 .tree {
@@ -66,6 +85,15 @@ const filterTreeNode = (value: string, data: any) => {
   top: 0;
   z-index: 33;
   background-color: var(--el-bg-color-overlay);
-  margin-top: 20px;
+}
+
+.link-wrapper :deep(.el-link__inner) {
+  align-items: flex-start;
+}
+
+.link-icon {
+  width: 14px;
+  height: 14px;
+  margin-top: 13px;
 }
 </style>

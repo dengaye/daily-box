@@ -36,6 +36,6 @@ onMounted(() => {
 </template>
 <style scoped>
 .aside {
-  padding: 0 20px 20px;
+  padding: 0 10px 10px;
 }
 </style>

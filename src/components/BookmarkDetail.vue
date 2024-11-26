@@ -21,10 +21,12 @@ const isLink = (item: Bookmark) => {
   <el-card shadow="always" v-if="store.markbookDetail" class="container">
     <el-space wrap>
       <el-card v-for="item in store.markbookDetail?.children" :key="item.id" @click="() => handleClick(item)" class="card">
-        <el-icon v-if="!isLink(item)" :size="20" class="icon">
+        <el-icon v-if="!isLink(item)" :size="20" class="el-icon--left icon">
           <FolderOpened />
         </el-icon>
-        <BookmarkFavicon v-else :url="item.url" className="img" />
+        <el-icon class="el-icon--left" v-else :size="20">
+          <BookmarkFavicon :url="item.url" />
+        </el-icon>
         <el-link v-if="isLink(item)">
           {{ item.title }}
         </el-link>
@@ -42,12 +44,8 @@ const isLink = (item: Bookmark) => {
 }
 .icon {
   vertical-align: bottom;
-  margin-right: 8px;
 }
 .card {
   cursor: pointer;
-}
-.img {
-  margin-right: 8px;
 }
 </style>
