@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
-import BookmarkFavicon from './BookmarkFavicon.vue'
+import BookmarkItem from './BookmarkItem.vue'
 import { Bookmark } from '../types/bookmark'
 import store from '../store'
 
@@ -35,8 +35,6 @@ const filterTreeNode = (value: string, data: any) => {
   return data.title?.includes?.(value)
 }
 
-const isLink = (data: any) => !data?.children?.length
-
 </script>
 
 <template>
@@ -52,18 +50,10 @@ const isLink = (data: any) => !data?.children?.length
     :filter-node-method="filterTreeNode"
     node-key="id"
     class="tree"
-    :index="12"
+    :indent="12"
   >
-    <template #default="{node, data}">
-      <el-link v-if="isLink(data)" class="link-wrapper">
-        <el-icon class="el-icon--left">
-          <BookmarkFavicon :url="data.url" className="link-icon" />
-        </el-icon>
-        {{ node.label }}
-      </el-link>
-      <span class="custom-tree-node" v-else>
-        <span>{{ node.label }}</span>
-      </span>
+    <template #default="{data}">
+      <BookmarkItem :icon-size="14" :bookmark="data" />
     </template>
   </el-tree>
 </template>
@@ -78,6 +68,7 @@ const isLink = (data: any) => !data?.children?.length
   height: auto;
   line-height: 26px;
   white-space: break-spaces;
+  align-items: baseline;
 }
 
 .input-wrapper {
@@ -85,15 +76,5 @@ const isLink = (data: any) => !data?.children?.length
   top: 0;
   z-index: 33;
   background-color: var(--el-bg-color-overlay);
-}
-
-.link-wrapper :deep(.el-link__inner) {
-  align-items: flex-start;
-}
-
-.link-icon {
-  width: 14px;
-  height: 14px;
-  margin-top: 13px;
 }
 </style>
