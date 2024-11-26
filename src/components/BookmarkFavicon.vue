@@ -1,12 +1,9 @@
 <template>
-  <el-image :src="faviconURLInChromeExtends(url || '', '20')" fit="cover" class="img" :class="className" crossorigin="anonymous" />
+  <el-image :src="faviconURLInChromeExtends(url || '', '20')" fit="cover" class="img" crossorigin="anonymous" />
 </template>
 <script lang="ts" setup>
 import { faviconURLInChromeExtends } from '../utils/bookmark'
-defineProps<{
-  url?: string
-  className?: string
-}>()
+defineProps<{ url?: string }>()
 </script>
 <style scoped>
 .img {

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import store from '../store/index'
 import { Bookmark } from '../types/bookmark'
 import BookmarkItem from './BookmarkItem.vue'
@@ -11,13 +12,18 @@ const handleClick = (data: Bookmark) => {
   }
 }
 
+const hasData = computed(() => !!store.markbookDetail?.children?.length)
+
 </script>
 <template>
-  <el-card shadow="always" v-if="store.markbookDetail" class="container">
+  <el-card shadow="always" v-if="store.markbookDetail" class="container" :class="{ empty: !hasData }">
     <el-space wrap>
-      <el-card v-for="item in store.markbookDetail?.children" :key="item.id" @click="() => handleClick(item)" class="card">
-        <BookmarkItem :icon-size="20" :bookmark="item" />
-      </el-card>
+      <template v-if="hasData">
+        <el-card v-for="item in store.markbookDetail?.children" :key="item.id" @click="() => handleClick(item)" class="card">
+          <BookmarkItem :icon-size="20" :bookmark="item" />
+        </el-card>
+      </template>
+      <el-empty v-else description="空" />
     </el-space>
   </el-card>
 </template>
@@ -25,6 +31,12 @@ const handleClick = (data: Bookmark) => {
 .container {
   margin-top: 10px;
 }
+
+.empty {
+  display: flex;
+  justify-content: center;
+}
+
 .container :deep(.el-card__body) {
   display: inline-flex
 }

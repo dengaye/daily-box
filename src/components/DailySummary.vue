@@ -35,14 +35,10 @@ onMounted(() => {
       每日一览 <el-text class="mx-1" size="small">{{todayTime}}</el-text>
     </template>
     <el-link class="text item" :href="dailyBookmark.url" v-if="dailyBookmark" target="_blank">
-      <BookmarkFavicon :url="dailyBookmark.url" className="icon" />
+      <el-icon class="el-icon--left">
+        <BookmarkFavicon :url="dailyBookmark.url" />
+      </el-icon>
       {{ dailyBookmark.title }}
     </el-link>
   </el-card>
 </template>
-
-<style scoped>
-.icon {
-  margin-right: 8px;
-}
-</style>

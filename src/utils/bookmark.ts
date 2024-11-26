@@ -50,6 +50,9 @@ export const genaratorBookmark: any = (bookmarkNodes: Bookmark[]) => {
     if (bookmark.children && bookmark.children.length > 0) {
       return genaratorBookmark(bookmark.children);
     }
+		if (!bookmark.url) {
+			return genaratorBookmark(bookmark)
+		}
     return bookmark;
   }
 }

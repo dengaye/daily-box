@@ -1,17 +1,16 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { Bookmark } from '../types/bookmark'
 import { FolderOpened } from '@element-plus/icons-vue'
 import BookmarkFavicon from './BookmarkFavicon.vue'
 
-defineProps<{ bookmark: Bookmark, iconSize: number }>()
+const { bookmark } = defineProps<{ bookmark: Bookmark, iconSize: number }>()
 
-const isLink = (item: Bookmark) => {
-  return !item?.children?.length
-}
+const isLink = computed(() => !bookmark?.children?.length && bookmark.url)
 
 </script>
 <template>
-  <template v-if="isLink(bookmark)">
+  <template v-if="isLink">
     <el-icon class="el-icon--left icon" :size="iconSize">
       <BookmarkFavicon :url="bookmark.url" />
     </el-icon>
