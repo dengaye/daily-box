@@ -9,3 +9,8 @@ interface BookmarkChildren {
 export interface Bookmark extends BookmarkChildren {
   children?: Bookmark[]
 }
+
+export enum ActionsFolderBookmarkType {
+  CREATE = 'create',
+  EDIT = 'edit'
+}

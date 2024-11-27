@@ -5,6 +5,7 @@ import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import IconsResolver from 'unplugin-icons/resolver'
 import Icons from 'unplugin-icons/vite'
+import ElementPlus from 'unplugin-element-plus/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -31,6 +32,7 @@ export default defineConfig({
     Icons({
       autoInstall: true,
     }),
+    ElementPlus({})
   ],
   build: {
     outDir: 'dist'
