@@ -19,17 +19,13 @@ const isLink = computed(() => !bookmark?.children?.length && bookmark.url)
     </el-link>
   </template>
   <template v-else>
-    <el-icon :size="iconSize" class="el-icon--left folder-icon">
+    <el-icon :size="iconSize" class="el-icon--left icon">
       <Folder />
     </el-icon>
     <span>{{ bookmark.title }}</span>
   </template>
 </template>
 <style scoped>
-.folder-icon {
-  margin-top: -3px;
-  vertical-align: bottom;
-}
 .icon {
   flex-shrink: 0;
 }

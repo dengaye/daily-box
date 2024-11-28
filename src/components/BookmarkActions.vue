@@ -41,7 +41,7 @@ const handleDelete = async (e: Event) => {
   <div class="actions" @click.stop>
     <el-dropdown trigger="click">
       <el-button type="info" text>
-        <el-icon>
+        <el-icon class="more-icon">
           <MoreFilled />
         </el-icon>
       </el-button>
@@ -67,5 +67,8 @@ const handleDelete = async (e: Event) => {
   right: 6px;
   top: 50%;
   margin-top: -14px;
+}
+.more-icon {
+  transform: rotate(90deg);
 }
 </style>

@@ -27,7 +27,7 @@ onMounted(() => {
       <el-aside class="aside">
         <AsideTree :sourceData="sourceData"/>
       </el-aside>
-      <el-main>
+      <el-main class="main custom-scrollbar">
         <DailySummary :sourceData="sourceData" />
         <BookMarkDetail />
       </el-main>
@@ -36,6 +36,10 @@ onMounted(() => {
 </template>
 <style scoped>
 .aside {
-  padding: 0 10px 10px;
+  padding: 20px 0 20px 20px;
+  overflow: hidden;
+}
+.main {
+  max-height: 100vh;
 }
 </style>

@@ -32,8 +32,10 @@ declare module 'vue' {
     ElInput: typeof import('element-plus/es')['ElInput']
     ElLink: typeof import('element-plus/es')['ElLink']
     ElMain: typeof import('element-plus/es')['ElMain']
+    ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
     ElSpace: typeof import('element-plus/es')['ElSpace']
     ElText: typeof import('element-plus/es')['ElText']
     ElTree: typeof import('element-plus/es')['ElTree']
+    SearchDialog: typeof import('./src/components/SearchDialog.vue')['default']
   }
 }
