@@ -17,6 +17,8 @@ declare module 'vue' {
     BookmarkItem: typeof import('./src/components/BookmarkItem.vue')['default']
     DailySummary: typeof import('./src/components/DailySummary.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
+    ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
+    ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCard: typeof import('element-plus/es')['ElCard']
     ElContainer: typeof import('element-plus/es')['ElContainer']
@@ -36,6 +38,7 @@ declare module 'vue' {
     ElSpace: typeof import('element-plus/es')['ElSpace']
     ElText: typeof import('element-plus/es')['ElText']
     ElTree: typeof import('element-plus/es')['ElTree']
+    NavBreadcrumb: typeof import('./src/components/NavBreadcrumb.vue')['default']
     SearchDialog: typeof import('./src/components/SearchDialog.vue')['default']
   }
 }

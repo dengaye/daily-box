@@ -52,10 +52,10 @@ watch(searchText, (val) => {
 
 const handleSelect = (item: Bookmark) => {
   if (item.url) {
-    store.updateMarkbookDetail(null)
+    store.setDetail(null)
     window.open(item.url)
   } else {
-    store.updateMarkbookDetail(item)
+    store.setDetail(item)
   }
   dialogVisible.value = false
   searchText.value = ''

@@ -33,7 +33,7 @@ const handleDelete = async (e: Event) => {
     }
   )
   await chrome.bookmarks.removeTree(String(props.bookmark?.id))
-  store.deleteBookmarkDetailById(props.bookmark.id)
+  store.deleteDetail(props.bookmark.id)
 }
 </script>
 

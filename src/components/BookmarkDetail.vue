@@ -5,13 +5,13 @@ import { Bookmark } from '../types/bookmark'
 import BookmarkItem from './BookmarkItem.vue'
 import BookmarkActions from './BookmarkActions.vue'
 import BookmarkContextMenu from './BookmarkContextMenu.vue'
+import NavBreadcrumb from './NavBreadcrumb.vue'
+import { useClickBookmarkItem } from '../composables/useClickBookmarkItem'
+
+const { handleClickBookmarkItem } = useClickBookmarkItem()
 
 const handleClick = (data: Bookmark) => {
-  if (data.children?.length || !data.url) {
-    store.updateMarkbookDetail(data)
-  } else {
-    window.open(data.url)
-  }
+  handleClickBookmarkItem(data)
 }
 
 const hasData = computed(() => !!store.markbookDetail?.children?.length)
@@ -43,6 +43,9 @@ onUnmounted(() => {
 </script>
 <template>
   <el-card shadow="always" v-if="store.markbookDetail" class="container" :class="{ empty: !hasData }" @contextmenu="handleContextMenu">
+    <template #header>
+      <NavBreadcrumb :nav-path="store.navPath" />
+    </template>
     <el-space wrap>
       <template v-if="hasData">
         <el-card v-for="item in store.markbookDetail?.children" :key="item.id" @click="() => handleClick(item)" class="card">

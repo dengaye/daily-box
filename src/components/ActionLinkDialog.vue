@@ -19,7 +19,7 @@ const createBookmark = async () => {
     title: bookmarkForm.value.name,
     url: bookmarkForm.value.url
   });
-  store.insertBookmarkDetailChildren(newBookmark)
+  store.insertChild(newBookmark)
 }
 
 const editBookmark = async () => {
@@ -29,7 +29,7 @@ const editBookmark = async () => {
   }
   const bookmarkId = props.bookmark?.id || ''
   await chrome.bookmarks.update(bookmarkId, updateParams)
-  store.updateBookmarkDetailById({ id: bookmarkId, ...updateParams })
+  store.updateDetail({ id: bookmarkId, ...updateParams })
 }
 
 const handleEditSubmit = async () => {
