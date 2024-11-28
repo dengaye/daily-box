@@ -4,12 +4,11 @@ import BookmarkItem from './BookmarkItem.vue'
 import { Bookmark } from '../types/bookmark'
 import SearchDialog from './SearchDialog.vue'
 import { useClickBookmarkItem } from '../composables/useClickBookmarkItem'
+import { Fold } from '@element-plus/icons-vue'
+import asideStore from '../store/aside'
+import store from '../store'
 
 const { handleClickBookmarkItem } = useClickBookmarkItem()
-
-defineProps<{
-  sourceData: Bookmark[]
-}>()
 
 const treeDefaultProps = {
   children: 'children',
@@ -62,6 +61,10 @@ onUnmounted(() => {
   window.removeEventListener('keydown', handleKeydown)
 })
 
+const toggleAside = () => {
+  asideStore.toggleCollapse()
+}
+
 </script>
 
 <template>
@@ -74,17 +77,26 @@ onUnmounted(() => {
       @click="showSearch = true"
       class="input-content"
     />
+    <el-icon
+      class="collapse-icon"
+      :class="{ 'collapsed': asideStore.isCollapsed }"
+      size="24"
+      @click="toggleAside"
+    >
+      <Fold />
+    </el-icon>
   </el-space>
 
   <el-tree
     ref="treeRef"
-    :data="sourceData"
+    :data="store.sourceData"
     :props="treeDefaultProps"
     @node-click="handleTreeClick"
     :filter-node-method="filterTreeNode"
     node-key="id"
     class="tree custom-scrollbar"
     :indent="12"
+    v-if="!asideStore.isCollapsed"
   >
     <template #default="{data}">
       <BookmarkItem :icon-size="14" :bookmark="data" />
@@ -93,7 +105,7 @@ onUnmounted(() => {
 
   <SearchDialog
     v-model:visible="showSearch"
-    :source-data="sourceData"
+    :source-data="store.sourceData"
   />
 </template>
 <style scoped>
@@ -127,5 +139,15 @@ onUnmounted(() => {
 }
 .input-content {
   background-color: var(--el-bg-color-overlay);
+}
+.collapse-icon {
+  cursor: pointer;
+  flex-shrink: 1;
+}
+.collapse-icon:hover {
+  color: var(--el-color-primary);
+}
+.collapse-icon.collapsed {
+  transform: rotate(180deg);
 }
 </style>
