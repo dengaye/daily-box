@@ -24,7 +24,7 @@ onMounted(() => {
       <AsideTree />
     </aside>
     
-    <main :class="['main', { 'expanded': asideStore.isCollapsed }]">
+    <main class="main custom-scrollbar" :class="{ 'expanded': asideStore.isCollapsed }">
       <DailySummary :sourceData="store.sourceData" />
       <BookMarkDetail />
     </main>
@@ -52,6 +52,7 @@ onMounted(() => {
   margin-left: 20px;
   transition: margin-left 0.3s ease;
   max-height: 100vh;
+  overflow-y: auto;
 }
 
 .main.expanded {
