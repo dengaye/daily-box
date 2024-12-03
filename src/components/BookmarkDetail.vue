@@ -7,6 +7,7 @@ import BookmarkActions from './BookmarkActions.vue'
 import BookmarkContextMenu from './BookmarkContextMenu.vue'
 import NavBreadcrumb from './NavBreadcrumb.vue'
 import { useClickBookmarkItem } from '../composables/useClickBookmarkItem'
+import { useBookmarkDrag } from '../composables/useBookmarkDrag'
 
 const { handleClickBookmarkItem } = useClickBookmarkItem()
 
@@ -40,15 +41,38 @@ onMounted(() => {
 onUnmounted(() => {
   document.removeEventListener('click', handleClickOutside)
 })
+
+const { 
+  dragOverIndex,
+  handleDragStart,
+  handleDragEnd,
+  handleDragOver,
+  handleDrop
+} = useBookmarkDrag()
+
 </script>
 <template>
   <el-card shadow="always" v-if="store.markbookDetail" class="container" :class="{ empty: !hasData }" @contextmenu="handleContextMenu">
     <template #header>
       <NavBreadcrumb :nav-path="store.navPath" />
     </template>
-    <el-space wrap>
+    <el-space wrap fill direction="vertical">
       <template v-if="hasData">
-        <el-card v-for="item in store.markbookDetail?.children" :key="item.id" @click="() => handleClick(item)" class="card">
+        <el-card 
+          v-for="(item, index) in store.markbookDetail?.children" 
+          :key="item.id" 
+          @click="() => handleClick(item)" 
+          class="card"
+          draggable="true"
+          @dragstart="handleDragStart(item)"
+          @dragend="handleDragEnd"
+          @dragover="(e) => handleDragOver(e, index)"
+          @drop="handleDrop(index)"
+        >
+          <div 
+            class="drag-indicator" 
+            :class="{ active: dragOverIndex === index }"
+          ></div>
           <section class="bookmark-item">
             <BookmarkItem :icon-size="20" :bookmark="item" />
           </section>
@@ -67,16 +91,18 @@ onUnmounted(() => {
 <style lang="css" scoped>
 .container {
   margin-top: 10px;
+  min-height: calc(100vh - 130px);
 }
 
 .empty {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
 }
 
-.container :deep(.el-card__body) {
-  display: inline-flex
+.container :deep(.el-space--vertical) {
+  width: 100%;
 }
+
 .icon {
   vertical-align: bottom;
 }
@@ -84,9 +110,33 @@ onUnmounted(() => {
   cursor: pointer;
   position: relative;
   line-height: 20px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
 .bookmark-item {
   margin-right: 36px;
   display: flex;
+}
+
+.drag-indicator {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: transparent;
+  top: -1px;
+}
+
+.drag-indicator.active {
+  background: #409eff;
+}
+
+/* 拖拽时的样式 */
+.card[draggable="true"]:active {
+  opacity: 0.5;
+}
+
+/* 添加列表项移动的过渡效果 */
+.el-space--vertical .el-card {
+  transition: all 0.3s ease;
 }
 </style>

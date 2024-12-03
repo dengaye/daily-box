@@ -15,11 +15,11 @@ const isCreateDialog = computed(() => props.type === ActionsFolderBookmarkType.C
 const createFolder = async () => {
   await folderFormRef.value.validate(async (valid: boolean) => {
     if (valid) {
-      const newBookmark: any = await chrome.bookmarks.create({
+      await chrome.bookmarks.create({
         parentId: store.markbookDetail?.id,
         title: folderForm.value.name
-      });
-      store.insertChild(newBookmark)
+      })
+      store.updateDetail(store.markbookDetail?.id || '')
     }
   })
 }
@@ -30,7 +30,7 @@ const editFolder = async () => {
   }
   const bookmarkId = props.bookmark?.id || ''
   await chrome.bookmarks.update(bookmarkId, updateParams)
-  store.updateDetail({ id: bookmarkId, ...updateParams })
+  store.updateDetail(bookmarkId)
 }
 
 const handleEditSubmit = async () => {

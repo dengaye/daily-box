@@ -14,12 +14,12 @@ const emit = defineEmits(['update:visible'])
 const isCreateDialog = computed(() => props.type === ActionsFolderBookmarkType.CREATE)
 
 const createBookmark = async () => {
-  const newBookmark: any = await chrome.bookmarks.create({
+ await chrome.bookmarks.create({
     parentId: store.markbookDetail?.id,
     title: bookmarkForm.value.name,
     url: bookmarkForm.value.url
   });
-  store.insertChild(newBookmark)
+  store.updateDetail(store.markbookDetail?.id || '')
 }
 
 const editBookmark = async () => {
@@ -29,7 +29,7 @@ const editBookmark = async () => {
   }
   const bookmarkId = props.bookmark?.id || ''
   await chrome.bookmarks.update(bookmarkId, updateParams)
-  store.updateDetail({ id: bookmarkId, ...updateParams })
+  store.updateDetail(bookmarkId)
 }
 
 const handleEditSubmit = async () => {
