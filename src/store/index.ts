@@ -13,68 +13,40 @@ class BookmarkStore {
   sourceData: Bookmark[] = []
   originSourceData: Bookmark[] = []
 
-  // 初始化数据
   async init({ noSetSourceData = true } = {}): Promise<void> {
-    return new Promise((resolve) => {
-      chrome.bookmarks.getTree((bookmarkNodes: any) => {
-        const originData = bookmarkNodes?.[0] || []
-        if (noSetSourceData) {
-          this.sourceData = formatBookmarkToTree(bookmarkNodes)
-        }
-        this.setDetail(originData)
-        this.originSourceData = originData
-        this.navPath = []
-        resolve()
-      })
-    })
+    const bookmarkNodes: any = await chrome.bookmarks.getTree()
+    const originData = bookmarkNodes?.[0] || []
+    if (noSetSourceData) {
+      this.sourceData = formatBookmarkToTree(bookmarkNodes)
+    }
+    this.setDetail(originData)
+    this.originSourceData = originData
+    this.navPath = []
   }
 
   setDetail(data: Bookmark | null): void {
     this.markbookDetail = data
   }
 
-  deleteDetail(id: string): void {
-    if (!this.markbookDetail) return
-    
-    if (id === this.markbookDetail.id) {
-      this.markbookDetail = null
-      return
-    }
-
-    if (this.markbookDetail.children) {
-      this.markbookDetail.children = this.markbookDetail.children.filter(
-        item => item.id !== id
-      )
-    }
+  async updateDetail(id: string): Promise<void> {
+    const bookmarks: any = await chrome.bookmarks.getSubTree(id)
+    this.setDetail( bookmarks?.[0])
   }
 
-  updateDetail(data: Partial<Bookmark> & { id: string }): void {
-    if (!this.markbookDetail) return
-
-    if (data.id === this.markbookDetail.id) {
-      this.markbookDetail = { ...this.markbookDetail, ...data }
-      return
-    }
-
-    if (this.markbookDetail.children) {
-      this.markbookDetail.children = this.markbookDetail.children.map(
-        item => item.id === data.id ? { ...item, ...data } : item
-      )
-    }
-  }
-
-  insertChild(data: Bookmark): void {
-    if (!this.markbookDetail) return
-
-    if (!this.markbookDetail.children) {
-      this.markbookDetail.children = []
-    }
-    this.markbookDetail.children.push(data)
-  }
-
-  // 导航路径相关方法
   setNavPath(path: Bookmark[]): void {
     this.navPath = path
+  }
+
+  async pinBookmark(bookmarkId: string) {
+    const bookmark = await chrome.bookmarks.get(bookmarkId)
+    if (!bookmark?.[0] || !bookmark[0].parentId) return
+    
+    await chrome.bookmarks.move(bookmarkId, {
+      parentId: bookmark[0].parentId,
+      index: 0
+    })
+
+    this.updateDetail(bookmark[0].parentId)
   }
 }
 

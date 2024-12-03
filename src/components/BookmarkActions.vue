@@ -24,7 +24,7 @@ const handleEdit = (e: Event) => {
 const handleDelete = async (e: Event) => {
   e.stopPropagation()
   await ElMessageBox.confirm(
-    `确定要删除该${isFolder.value ? '文件夹' : '书签'} “${props.bookmark.title}” 吗？`,
+    `确定要删除该${isFolder.value ? '文件夹' : '书签'} "${props.bookmark.title}" 吗？`,
     '提示',
     {
       confirmButtonText: '确定',
@@ -33,7 +33,12 @@ const handleDelete = async (e: Event) => {
     }
   )
   await chrome.bookmarks.removeTree(String(props.bookmark?.id))
-  store.deleteDetail(props.bookmark.id)
+  store.updateDetail(props.bookmark.parentId)
+}
+
+const handlePin = (e: Event) => {
+  e.stopPropagation()
+  store.pinBookmark(props.bookmark.id)
 }
 </script>
 
@@ -52,6 +57,7 @@ const handleDelete = async (e: Event) => {
             {{ isFolder ? '重命名' : '修改' }}
           </el-dropdown-item>
           <el-dropdown-item @click="handleDelete">删除</el-dropdown-item>
+          <el-dropdown-item @click="handlePin">置顶</el-dropdown-item>
         </el-dropdown-menu>
       </template>
     </el-dropdown>
