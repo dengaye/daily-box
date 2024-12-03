@@ -44,14 +44,14 @@ export const formatBookmarkToTree = (bookmarkTreeNodes: Bookmark[]) => {
  */
 export const genaratorBookmark: any = (bookmarkNodes: Bookmark[]) => {
   if (Array.isArray(bookmarkNodes)) {
-    const length = bookmarkNodes.length - 1;
-    const random = getRandomInt(0, length);
-    const bookmark = bookmarkNodes[random];
-    if (bookmark.children && bookmark.children.length > 0) {
-      return genaratorBookmark(bookmark.children);
+    const length = bookmarkNodes.length - 1
+    const random = getRandomInt(0, length)
+    const bookmark = bookmarkNodes[random]
+    if (bookmark?.children?.length) {
+      return genaratorBookmark(bookmark.children)
     }
-		if (!bookmark.url) {
-			return genaratorBookmark(bookmark)
+		if (!bookmark?.url) {
+			return genaratorBookmark(bookmarkNodes)
 		}
     return bookmark;
   }

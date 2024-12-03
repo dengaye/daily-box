@@ -106,6 +106,7 @@ const toggleAside = () => {
   <SearchDialog
     v-model:visible="showSearch"
     :source-data="store.sourceData"
+    append-to-body
   />
 </template>
 <style scoped>

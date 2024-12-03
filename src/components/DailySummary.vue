@@ -17,12 +17,12 @@ onMounted(() => {
   const time = getTodayTime()
   todayTime.value = time
   const localStorageKey = `${DAILY_MSG_STORAGE_KEY_PREFIX}${time}`
-  let bookmark = localStorage.getItem(localStorageKey);
+  let bookmark = localStorage.getItem(localStorageKey)
   if (bookmark) {
-    bookmark = JSON.parse(bookmark);
+    bookmark = JSON.parse(bookmark)
   } else {
     bookmark = genaratorBookmark(props.sourceData)
-    localStorage.setItem(localStorageKey, JSON.stringify(bookmark));
+    localStorage.setItem(localStorageKey, JSON.stringify(bookmark))
   }
   dailyBookmark.value = bookmark
 })

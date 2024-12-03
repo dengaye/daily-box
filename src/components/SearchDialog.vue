@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { ref, watch, nextTick } from 'vue'
 import { Search } from '@element-plus/icons-vue'
+import type { ElInput, ElScrollbar } from 'element-plus'
 import BookmarkItem from './BookmarkItem.vue'
 import { Bookmark } from '../types/bookmark'
-import type { ElInput, ElScrollbar } from 'element-plus'
 import store from '../store'
 
 const props = defineProps<{
@@ -52,7 +52,6 @@ watch(searchText, (val) => {
 
 const handleSelect = (item: Bookmark) => {
   if (item.url) {
-    store.setDetail(null)
     window.open(item.url)
   } else {
     store.setDetail(item)

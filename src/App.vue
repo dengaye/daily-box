@@ -19,7 +19,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="layout-container">
+  <div class="layout-container" v-if="!loading">
     <aside :class="['aside', { 'collapsed': asideStore.isCollapsed }]">
       <AsideTree />
     </aside>
