@@ -8,6 +8,7 @@ import BookmarkContextMenu from './BookmarkContextMenu.vue'
 import NavBreadcrumb from './NavBreadcrumb.vue'
 import { useClickBookmarkItem } from '../composables/useClickBookmarkItem'
 import { useBookmarkDrag } from '../composables/useBookmarkDrag'
+import NavBreadcrumbActions from './NavBreadcrumbActions.vue'
 
 const { handleClickBookmarkItem } = useClickBookmarkItem()
 
@@ -50,13 +51,18 @@ const {
   handleDrop
 } = useBookmarkDrag()
 
+const hasVertical = ref(false)
+
 </script>
 <template>
   <el-card shadow="always" v-if="store.markbookDetail" class="container" :class="{ empty: !hasData }" @contextmenu="handleContextMenu">
     <template #header>
-      <NavBreadcrumb :nav-path="store.navPath" />
+      <el-space :style="{'justify-content': 'space-between', width: '100%' }">
+        <NavBreadcrumb />
+        <NavBreadcrumbActions v-model:hasVertical="hasVertical" />
+      </el-space>
     </template>
-    <el-space wrap fill direction="vertical">
+    <el-space wrap :fill="hasVertical" :direction="hasVertical ? 'vertical' : 'horizontal'">
       <template v-if="hasData">
         <el-card 
           v-for="(item, index) in store.markbookDetail?.children" 
@@ -97,6 +103,11 @@ const {
 .empty {
   display: flex;
   flex-direction: column;
+}
+
+.empty :deep(.el-space) {
+  width: 100%;
+  justify-content: center;
 }
 
 .container :deep(.el-space--vertical) {
