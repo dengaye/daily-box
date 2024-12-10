@@ -9,7 +9,6 @@ declare module 'vue' {
   export interface GlobalComponents {
     ActionFolderDialog: typeof import('./src/components/ActionFolderDialog.vue')['default']
     ActionLinkDialog: typeof import('./src/components/ActionLinkDialog.vue')['default']
-    AppNotion: typeof import('./src/components/AppNotion.vue')['default']
     AsideTree: typeof import('./src/components/AsideTree.vue')['default']
     BookmarkActions: typeof import('./src/components/BookmarkActions.vue')['default']
     BookmarkContextMenu: typeof import('./src/components/BookmarkContextMenu.vue')['default']
