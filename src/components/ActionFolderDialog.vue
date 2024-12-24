@@ -52,7 +52,7 @@ defineExpose({
 })
 </script>
 <template>
-  <el-dialog v-model="showFolderDialog" :title="isCreateDialog ? '新建文件夹' : '重命名文件夹'" width="30%">
+  <el-dialog append-to-body v-model="showFolderDialog" :title="isCreateDialog ? '新建文件夹' : '重命名文件夹'" width="30%">
     <el-form
       ref="folderFormRef"
       :model="folderForm"

@@ -53,7 +53,7 @@ defineExpose({
 
 </script>
 <template>
-  <el-dialog v-model="showBookmarkDialog" :title="isCreateDialog ? '新建书签' : '修改书签'" width="30%">
+  <el-dialog append-to-body v-model="showBookmarkDialog" :title="isCreateDialog ? '新建书签' : '修改书签'" width="30%">
     <el-form
       ref="bookmarkFormRef"
       :model="bookmarkForm"
