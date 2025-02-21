@@ -30,7 +30,9 @@ const editFolder = async () => {
   }
   const bookmarkId = props.bookmark?.id || ''
   await chrome.bookmarks.update(bookmarkId, updateParams)
-  store.updateDetail(bookmarkId)
+  if (props.bookmark?.parentId) {
+    store.updateDetail(props.bookmark.parentId)
+  }
 }
 
 const handleEditSubmit = async () => {
