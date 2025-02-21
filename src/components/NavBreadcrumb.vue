@@ -15,7 +15,7 @@ const handleNavClick = (item: Bookmark) => {
 
 const handleHomeClick = () => {
   if (!store.navPath.length) return 
-  store.init({ noSetSourceData: false })
+  store.updateMarkBookDetailByApi()
 }
 </script>
 
