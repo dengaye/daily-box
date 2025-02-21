@@ -12,31 +12,20 @@ export function faviconURLInChromeExtends(pageUrl: string, size: string) {
 /**
  * 初始时，格式化 bookmark 数据
  */
-export const formatBookmarkToTree = (bookmarkTreeNodes: Bookmark[]) => {
-  let newData: Bookmark[] = []
-	if (bookmarkTreeNodes?.length === 1) {
-		if (newData?.[0]?.title) {
-			newData = bookmarkTreeNodes
-		} else {
-			newData = bookmarkTreeNodes[0].children || []
-		}
-	} else {
-		newData = bookmarkTreeNodes
-	}
+export const formatBookmarkToTree = (bookmarkTreeNodes: Bookmark[]): Bookmark[] => {
+  if (!bookmarkTreeNodes?.length) {
+    return []
+  }
 
-	function filterEmpty(list: Bookmark[]) {
-		for(const item of list) {
-			if (item.children?.length) {
-				filterEmpty(item.children)
-			} else if (item.children){
-				delete item.children
-			}
-		}
-	}
+  if (bookmarkTreeNodes.length === 1) {
+    const firstNode = bookmarkTreeNodes[0]
+    return firstNode?.children?.length ? firstNode.children : bookmarkTreeNodes
+  }
 
-	filterEmpty(newData)
-
-	return newData
+  return bookmarkTreeNodes.map(item => ({
+    ...item,
+    children: item.children ? formatBookmarkToTree(item.children) : undefined
+  }))
 }
 
 /**

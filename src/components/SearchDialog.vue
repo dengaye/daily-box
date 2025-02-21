@@ -77,8 +77,9 @@ const handleKeydown = (e: KeyboardEvent | Event) => {
       break
     }
     case 'Enter': {
-      if (selectedIndex.value !== -1) {
-        handleSelect(searchResults.value[selectedIndex.value])
+      const selectedBookmark = searchResults.value[selectedIndex.value]
+      if (selectedIndex.value !== -1 && selectedBookmark) {
+        handleSelect(selectedBookmark)
       }
       break
     }
