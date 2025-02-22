@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import BookmarkFavicon from './BookmarkFavicon.vue'
+import BookmarkFavicon from '@/common/components/BookmarkFavicon/index.vue'
 import { Bookmark } from '../types/bookmark'
 import { genaratorBookmark } from '../utils/bookmark'
 import { DAILY_MSG_STORAGE_KEY_PREFIX } from '../constants/storage'

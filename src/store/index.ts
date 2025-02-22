@@ -24,7 +24,6 @@ class BookmarkStore {
       if (cacheBookmarks) {
         this.setDetail(cacheBookmarks)
         this.navPath = findBookmarkNav(this.sourceData, currentBookmarkId)
-        console.log( this.navPath )
         return
       }
     }

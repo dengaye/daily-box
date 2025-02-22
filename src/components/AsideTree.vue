@@ -69,7 +69,6 @@ const toggleAside = () => {
 
 <template>
   <el-space class="aside-title-wrapper">
-    <el-text class="mx-1" tag="i" size="large">DailyBox</el-text>
     <el-input
       v-model="filterText"
       placeholder="按 Ctrl + K 搜索"
@@ -135,7 +134,7 @@ const toggleAside = () => {
   align-items: center;
   background-color: var(--el-bg-color);
 }
-.aside-title-wrapper :deep(.el-space__item:nth-of-type(2)) {
+.aside-title-wrapper :deep(.el-space__item:nth-of-type(1)) {
   flex: 1;
 }
 .input-content {

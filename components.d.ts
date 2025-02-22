@@ -13,7 +13,6 @@ declare module 'vue' {
     BookmarkActions: typeof import('./src/components/BookmarkActions.vue')['default']
     BookmarkContextMenu: typeof import('./src/components/BookmarkContextMenu.vue')['default']
     BookmarkDetail: typeof import('./src/components/BookmarkDetail.vue')['default']
-    BookmarkFavicon: typeof import('./src/components/BookmarkFavicon.vue')['default']
     BookmarkItem: typeof import('./src/components/BookmarkItem.vue')['default']
     DailySummary: typeof import('./src/components/DailySummary.vue')['default']
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']

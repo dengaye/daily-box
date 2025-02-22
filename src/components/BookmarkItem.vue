@@ -1,35 +1,20 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { Bookmark } from '../types/bookmark'
-import { Folder } from '@element-plus/icons-vue'
-import BookmarkFavicon from './BookmarkFavicon.vue'
+import { Bookmark } from '@/types/bookmark'
+import BasicBookmarkItem from '@/common/components/BasicBookmarkItem/index.vue'
 
-const { bookmark } = defineProps<{ bookmark: Bookmark, iconSize: number }>()
+const { bookmark, iconSize } = defineProps<{ bookmark: Bookmark, iconSize: number }>()
 
 const isLink = computed(() => !bookmark?.children?.length && bookmark.url)
-
+const iconUrl = computed(() => bookmark.url || '')
+const title = computed(() => bookmark.title || '')
 </script>
+
 <template>
-  <template v-if="isLink">
-    <el-icon class="el-icon--left icon" :size="iconSize">
-      <BookmarkFavicon :url="bookmark.url" />
-    </el-icon>
-    <el-link>
-      {{ bookmark.title }}
-    </el-link>
-  </template>
-  <template v-else>
-    <el-icon :size="iconSize" class="el-icon--left icon">
-      <Folder />
-    </el-icon>
-    <span>{{ bookmark.title }}</span>
-  </template>
+  <BasicBookmarkItem 
+    :is-link="!!isLink" 
+    :icon-size="iconSize"
+    :icon-url="iconUrl"
+    :title="title"
+  />
 </template>
-<style scoped>
-.icon {
-  flex-shrink: 0;
-}
-:deep(.el-link__inner) {
-  align-items: baseline;
-}
-</style>
