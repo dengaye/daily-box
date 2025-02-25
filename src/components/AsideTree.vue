@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, watch, onMounted, onUnmounted } from 'vue'
+import { ref, watch, onMounted, onUnmounted, computed } from 'vue'
 import BookmarkItem from './BookmarkItem.vue'
 import { Bookmark } from '../types/bookmark'
 import SearchDialog from './SearchDialog.vue'
@@ -7,6 +7,7 @@ import { useClickBookmarkItem } from '../composables/useClickBookmarkItem'
 import { Fold } from '@element-plus/icons-vue'
 import asideStore from '../store/aside'
 import store from '../store'
+import { isMac } from "../utils/platform"
 
 const { handleClickBookmarkItem } = useClickBookmarkItem()
 
@@ -33,6 +34,7 @@ const findNodePath = (tree: Bookmark[], targetId: string, path: Bookmark[] = [])
 
 const filterText = ref('')
 const treeRef = ref()
+const inMac = computed(() => isMac())
 
 watch(filterText, (val) => {
   treeRef.value!.filter(val)
@@ -47,7 +49,8 @@ const filterTreeNode = (value: string, data: any) => {
 const showSearch = ref(false)
 
 const handleKeydown = (e: KeyboardEvent) => {
-  if (e.ctrlKey && e.key.toLowerCase() === 'k') {
+  const mainKey = inMac ? e.metaKey : e.ctrlKey
+  if (mainKey&& e.key.toLowerCase() === 'k') {
     e.preventDefault()
     showSearch.value = true
   }
@@ -71,7 +74,7 @@ const toggleAside = () => {
   <el-space class="aside-title-wrapper">
     <el-input
       v-model="filterText"
-      placeholder="按 Ctrl + K 搜索"
+      :placeholder="inMac ? '按 Cmd + K 搜索' : '按 Ctrl + K 搜索'"
       readonly
       @click="showSearch = true"
       class="input-content"
